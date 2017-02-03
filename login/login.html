@@ -1,23 +1,27 @@
 <div ng-controller="LoginCtrl">
-<div class="login">
+  <div class="login">
     <div class="login-screen">
-      <div class="app-title">
-        <h1>Login</h1>
-      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="app-title">
+            <h1>Login</h1>
+          </div>
 
-      <div class="login-form">
-        <div class="control-group">
-        <input type="text" class="login-field" value="" placeholder="username" id="login-name" ng-model="username">
-        <label class="login-field-icon fui-user" for="login-name"></label>
+          <div class="login-form">
+            <div class="control-group">
+            <input type="text" class="form-control" value="" placeholder="username" id="login-name" ng-model="username">
+              <label class="login-field-icon fui-user" for="login-name"></label>
+            </div>
+
+            <div class="control-group">
+              <input type="password" class="form-control" value="" placeholder="password" id="login-pass" ng-model="password">
+              <label class="login-field-icon fui-lock" for="login-pass"></label>
+            </div>
+
+            <button class="btn btn-large btn-block" ng-click="logInAction()">log in</button>
+          </div>
         </div>
-
-        <div class="control-group">
-        <input type="password" class="login-field" value="" placeholder="password" id="login-pass" ng-model="password">
-        <label class="login-field-icon fui-lock" for="login-pass"></label>
-        </div>
-
-        <button class="btn btn-primary btn-large btn-block" ng-click="logInAction()">login</button>
       </div>
     </div>
   </div>
-<div>
+</div>
