@@ -49,7 +49,7 @@ input:focus {
   box-shadow: none;
 }
 
-.btn {
+.btnLogin {
   border: 2px solid transparent;
   background: #ff2c5f;
   color: #ffffff;
@@ -66,7 +66,7 @@ input:focus {
   margin: 0 auto;
 }
 
-.btn:hover {
+.btnLogin:hover {
   background-color: #FF587F;
 }
 
