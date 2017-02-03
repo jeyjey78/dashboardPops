@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('myApp.users', ['ngRoute'])
+angular.module('myApp.exports', ['ngRoute'])
 
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $routeProvider.when('/users', {
-    templateUrl: 'users/users.html',
-    controller: 'UsersCtrl'
+  $routeProvider.when('/exports', {
+    templateUrl: 'exports/exports.html',
+    controller: 'ExportsCtrl'
   });
 }])
 
-.controller('UsersCtrl', [function() {
+.controller('ExportsCtrl', [function() {
 
 }]);

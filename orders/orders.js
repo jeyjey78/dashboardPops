@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('myApp.users', ['ngRoute'])
+angular.module('myApp.orders', ['ngRoute'])
 
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $routeProvider.when('/users', {
-    templateUrl: 'users/users.html',
-    controller: 'UsersCtrl'
+  $routeProvider.when('/orders', {
+    templateUrl: 'orders/orders.html',
+    controller: 'OrdersCtrl'
   });
 }])
 
-.controller('UsersCtrl', [function() {
+.controller('OrdersCtrl', [function() {
 
 }]);

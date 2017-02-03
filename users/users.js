@@ -11,4 +11,6 @@ angular.module('myApp.users', ['ngRoute'])
 
 .controller('UsersCtrl', [function() {
 
+
+
 }]);
