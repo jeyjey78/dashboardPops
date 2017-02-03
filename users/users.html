@@ -30,7 +30,7 @@
 								<td class="col-md-3">0668794857</td>
 								<td class="col-md-3">john@example.com</td>
 								<td class="col-md-1">5€</td>
-								<td class="col-md-2"><button class="btn btn-info button-round">Ajouter</button></td>
+								<td class="col-md-2"><button class="btn btn-info button-round" data-toggle="modal" data-target=".bs-example-modal-sm">Ajouter</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -86,6 +86,36 @@
 							<H1>Remarques</H1>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Ajouter du crédit</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row-fluid"> 
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">montant</span>
+							<input type="text" class="form-control" placeholder="€" aria-describedby="basic-addon1">
+						</div>
+					</div><br/><br/>
+					<div class="row-fluid">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="livraison incluse" disabled="true">
+							<span class="input-group-addon">
+								<input type="checkbox" aria-label="...">
+							</span>
+						</div><!-- /input-group -->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Ajouter</button>
 				</div>
 			</div>
 		</div>
