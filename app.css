@@ -23,3 +23,8 @@
   content: "|";
   padding-right: 8.0em;
 }
+
+.commentairesOrders .commentairesUsers {
+	overflow: scroll;
+    max-height: 300px;
+}

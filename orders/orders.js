@@ -10,5 +10,8 @@ angular.module('myApp.orders', ['ngRoute'])
 }])
 
 .controller('OrdersCtrl', [function() {
+	$(function(){
+		$("#loadnavbar").load("../navbar.html");
+	});
 
 }]);

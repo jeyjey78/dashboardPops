@@ -11,6 +11,13 @@ angular.module('myApp.users', ['ngRoute'])
 
 .controller('UsersCtrl', [function() {
 
+	$(function(){
+      $("#loadnavbar").load("../navbar.html"); 
+    });
 
+    $(".nav a").on("click", function(){
+   $(".nav").find(".active").removeClass("active");
+   $(this).parent().addClass("active");
+});
 
 }]);
