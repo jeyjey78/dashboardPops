@@ -1,8 +1,165 @@
-  <ul class="menu">
-    <li><a href="#!/login">Login</a></li>
-    <li><a href="#!/users">Users</a></li>
-    <li><a href="#!/orders">Oders</a></li>
-    <li><a href="#!/exports">Pitch/Exports</a></li>
-  </ul>
+<div id="loadnavbar"></div>
+<h1>ORDERS</h1>
+<div ng-controller="OrdersCtrl">
+  <div class='col-sm-8 col-xs-12 information'>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class='col-xs-1'></div>
+          <div class='col-xs-10'>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Numero de commande" ng-model="searchData">
+              <span class="input-group-btn">
+                <button class="btn btn-default searchUser" ng-click="searchUser()" type="button">Rechercher</button>
+              </span>
+            </div><!-- /input-group -->
+          </div>
+        </div><br/>
+        <div class="row">
+          <table class="table col-xs-12">
+            <thead>
+              <tr>
+                <th>N° commande</th>
+                <th>Username</th>
+                <th>telephone</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-md-3">12345678</td>
+                <td class="col-md-3">John</td>
+                <td class="col-md-3">0668794857</td>
+                <td class="col-md-3">john@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div><br/>
+        <div class="row">
+          <div class="col-xs-7">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="row">
+                  <button class="btn btn-info pull-right">modifier <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                </div>
+                <div class="row">
+                 <table class="table col-xs-12">
+                  <tbody>
+                    <tr>
+                      <td class="col-md-3">Status</td>
+                      <td class="col-md-3">Validé</td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-3">Type</td>
+                      <td class="col-md-3">Box "DAnce"</td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-3">Nbre Pops</td>
+                      <td class="col-md-3">6/6</td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-3">Destinataire</td>
+                      <td class="col-md-3">Prenom Nom<br/>Adresse</td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-3">email</td>
+                      <td class="col-md-3">KidCmapy@gmail.com</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-5">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-xs-4" ng-repeat="i in [1, 2, 3, 4, 5, 6]">
+                <img alt="Brand" src="../components/images/pops-icon.jpg" height="100px" width="50px" style="padding-bottom: 20px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <H1>ORDERS</H1>
+<div class='col-sm-4 col-xs-12 remarques'>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-3"></div>
+          <div class="col-xs-6">
+            <H1>Zendesk</H1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-3"></div>
+          <div class="col-xs-6">
+            <H1>Remarques</H1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+           <div class="input-group">
+            <input type="text" class="form-control" placeholder="commenter">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">publier</button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="commentairesOrders">
+        <div class="row">
+          <div class="col-xs-2">
+            <p>Xavier</p>
+          </div>
+          <div class="col-xs-10">
+            <p>Une pop ne s'est pas imprimé...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter du crédit</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row-fluid"> 
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">montant</span>
+            <input type="text" class="form-control" placeholder="€" aria-describedby="basic-addon1">
+          </div>
+        </div><br/><br/>
+        <div class="row-fluid">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="livraison incluse" disabled="true">
+            <span class="input-group-addon">
+              <input type="checkbox" aria-label="...">
+            </span>
+          </div><!-- /input-group -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

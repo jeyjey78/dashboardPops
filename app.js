@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.users',
   'myApp.orders',
   'myApp.exports',
+  'myApp.navbar',
   'myApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
@@ -14,3 +15,4 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
+

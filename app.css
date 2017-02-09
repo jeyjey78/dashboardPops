@@ -21,5 +21,10 @@
 
 .menu > li + li:before {
   content: "|";
-  padding-right: 0.3em;
+  padding-right: 8.0em;
+}
+
+.commentairesOrders .commentairesUsers {
+	overflow: scroll;
+    max-height: 300px;
 }

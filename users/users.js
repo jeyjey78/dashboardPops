@@ -11,6 +11,8 @@ angular.module('myApp.users', ['ngRoute'])
 
 .controller('UsersCtrl', [function() {
 
-
+	$(function(){
+      $("#loadnavbar").load("../navbar.html"); 
+    });
 
 }]);
