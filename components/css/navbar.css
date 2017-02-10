@@ -16,9 +16,9 @@
   color: #ff2c5f;
   background-color: #f9c0ce;
 }
-.navbar-default .navbar-nav > li > a {
+/*.navbar-default .navbar-nav > li > a {
   color: #ecf0f1;
-}
+}*/
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #ff2c5f;
