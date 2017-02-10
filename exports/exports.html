@@ -1,9 +1,83 @@
 <div ng-app="MyApp.navbar" ng-controller="NavbarCtrl" id="navbar" ng-include="'navbar.html'">
   	
 </div>
-  
-<p>This is the partial for EXPORTS.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+ 
+<div class="container" ng-controller="ExportsCtrl">
+<br/>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4 col-xs-12 col-">
+		<div class="panel panel-default panel-horizontal">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">Commandes en attente</h3>
+		    </div>
+		    <div class="panel-body" style="font-size: 30px;">15 000</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-2">
+		<button class="btn btn-info button-round" alt="export">
+			Générer un nouvel export
+		</button>
+	</div>
+</div>
+<br/>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<table class="table col-xs-12">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Nbre de commandes</th>
+							<th>Nbre de feuilles A3</th>
+							<th>Pitch</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="col-md-2">16/01/2017</td>
+							<td class="col-md-2">156</td>
+							<td class="col-md-2">52</td>
+							<td class="col-md-2">101.2484</td>
+							<td class="col-md-2">on Hold</td>
+							<td class="col-md-2">
+								<button class="btn btn-info btn-sm button-round" alt="export">
+									<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+								</button>
+								<button class="btn btn-warning btn-sm button-round" alt="signaler un problème">
+									<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+								</button>
+								<button class="btn btn-danger btn-sm button-round" alt="signaler un problème">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-md-2">16/01/2017</td>
+							<td class="col-md-2">156</td>
+							<td class="col-md-2">52</td>
+							<td class="col-md-2">101.2484</td>
+							<td class="col-md-2">on Hold</td>
+							<td class="col-md-2">
+								<button class="btn btn-info btn-sm button-round">
+									<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+								</button>
+								<button class="btn btn-warning btn-sm button-round">
+									<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+								</button>
+								<button class="btn btn-danger btn-sm button-round" alt="signaler un problème">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
