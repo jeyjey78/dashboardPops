@@ -4,7 +4,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="app-title">
-            <h1>Login</h1>
+            <h1>BO Pops</h1>
           </div>
 
           <div class="login-form">
@@ -17,8 +17,13 @@
               <input type="password" class="form-control" value="" placeholder="password" id="login-pass" ng-model="password">
               <label class="login-field-icon fui-lock" for="login-pass"></label>
             </div>
-
-            <button class="btnLogin btn-large btn-block" ng-click="logInAction()">log in</button>
+              <button class="btnLogin btn-large btn-block" ng-click="logInAction()">log in</button><br/>
+              <div class="row">
+              <div class="col-xs-12 alertDiv"></div>
+              </div>
+          </div>
+          <div class="col-xs-12 col-xs-offset-5" ng-show="loading" style="height: 50px;">
+            <i class="fa fa-spinner fa-spin" style="font-size:30px; color:#ff2c5f;"></i>
           </div>
         </div>
       </div>

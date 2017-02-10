@@ -1,4 +1,8 @@
-<div id="loadnavbar"></div>
+<!-- <div id="loadnavbar"></div> -->
+
+<div ng-app="MyApp.navbar" ng-controller="NavbarCtrl" id="navbar" ng-include="'navbar.html'">
+  	
+</div>
 <!-- 
 
   <ul class="menu">
@@ -9,6 +13,9 @@
   </ul> -->
  <H1>USERS</H1>
 <div ng-controller="UsersCtrl">
+	<div class="col-xs-12 col-xs-offset-5" ng-show="loading" style="height: 50px;">
+		<i class="fa fa-spinner fa-spin" style="font-size:30px; color:#ff2c5f;"></i>
+	</div>
 	<div class='col-sm-8 col-xs-12 information'>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -24,6 +31,9 @@
 					</div>
 				</div><br/>
 				<div class="row">
+				<div class="col-xs-12 alertDiv"></div>
+				</div>
+				<div class="row">
 					<table class="table col-xs-12">
 						<thead>
 							<tr>
@@ -36,8 +46,8 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="col-md-3">John</td>
-								<td class="col-md-3">0668794857</td>
+								<td class="col-md-3">{{username}}</td>
+								<td class="col-md-3">{{phone}}</td>
 								<td class="col-md-3">john@example.com</td>
 								<td class="col-md-1">5€</td>
 								<td class="col-md-2"><button class="btn btn-info button-round" data-toggle="modal" data-target=".bs-example-modal-sm">Ajouter</button></td>
@@ -123,23 +133,28 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="commenter">
+								<input type="text" class="form-control" placeholder="commentaire" ng-model="commentText">
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">publier</button>
+									<button class="btn btn-default" type="button" ng-click="addComment()">publier</button>
 								</span>
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-xs-12 alertDivComment"></div>
+					</div>
 					<hr/>
 					<div class="commentairesUsers">
-						<div class="row">
-							<div class="col-xs-2">
-								<p>Xavier</p>
+						<div class="row" ng-repeat="comment in comments">
+							<div class="col-xs-12">
+								<div class="row">
+									{{comment.adminId}} - {{comment.creationDate | date:"dd/MM/yyyy hh:mm"}}
+								</div>
+								<div class="well well-sm">
+									{{comment.content}}
+								</div>
 							</div>
-							<div class="col-xs-10">
-								<p>Une pop ne s'est pas imprimé...</p>
-							</div>
-						</div>
+						</div>						
 					</div>
 				</div>
 			</div>
