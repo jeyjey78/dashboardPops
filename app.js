@@ -16,10 +16,6 @@ config(['$locationProvider', '$routeProvider', '$httpProvider', function($locati
 
   $routeProvider.otherwise({redirectTo: '/login'});
 
-  //$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
-  //$httpProvider.defaults.useXDomain = true;
-  //$httpProvider.defaults.withCredentials = true;
-
 }])
 .factory('user', function(){
   var user = {};

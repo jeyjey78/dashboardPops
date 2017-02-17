@@ -37,20 +37,20 @@
 					<table class="table col-xs-12">
 						<thead>
 							<tr>
+								<th>UserID</th>
 								<th>Username</th>
 								<th>telephone</th>
-								<th>Email</th>
 								<th>Crédits</th>
 								<th>Ajouter</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
+								<td class="col-md-3">{{userId}}</td>
 								<td class="col-md-3">{{username}}</td>
 								<td class="col-md-3">{{phone}}</td>
-								<td class="col-md-3">john@example.com</td>
-								<td class="col-md-1">5€</td>
-								<td class="col-md-2"><button class="btn btn-info button-round" data-toggle="modal" data-target=".bs-example-modal-sm">Ajouter</button></td>
+								<td class="col-md-1">{{credit}}</td>
+								<td class="col-md-2"><button class="btn btn-info btn-sm button-round" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -65,41 +65,24 @@
 								<th>Nbre de pops</th>
 								<th>Prix</th>
 								<th>Statut</th>
-								<th>Nbre de coms</th>
+								<th>voir commande</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="col-md-2">John</td>
-								<td class="col-md-3">0668794857</td>
-								<td class="col-md-2">6/6</td>
-								<td class="col-md-2">5€</td>
-								<td class="col-md-2"><p class="success">Validé</p></td>
-								<td class="col-md-2">15</td>
-							</tr>
-							<tr>
-								<td class="col-md-2">John</td>
-								<td class="col-md-3">0668794857</td>
-								<td class="col-md-2">6/6</td>
-								<td class="col-md-2">5€</td>
-								<td class="col-md-2"><p class="success">Validé</p></td>
-								<td class="col-md-2">15</td>
-							</tr>
-							<tr>
-								<td class="col-md-2">John</td>
-								<td class="col-md-3">0668794857</td>
-								<td class="col-md-2">6/6</td>
-								<td class="col-md-2">5€</td>
-								<td class="col-md-2"><p class="success">Validé</p></td>
-								<td class="col-md-2">15</td>
-							</tr>
-							<tr>
-								<td class="col-md-2">John</td>
-								<td class="col-md-3">0668794857</td>
-								<td class="col-md-2">6/6</td>
-								<td class="col-md-2">5€</td>
-								<td class="col-md-2"><p class="success">Validé</p></td>
-								<td class="col-md-2">15</td>
+							<tr ng-repeat="order in orders">
+								<td class="col-md-2">{{order.timestamps.created | date:"dd/MM/yyyy hh:mm"}}</td>
+								<td class="col-md-3">{{order.selections[0].productId}}</td>
+								<td class="col-md-2" ng-if="order.selections[0].productId == 'box6'">{{order.selections[0].sources.length}}/6</td>
+								<td class="col-md-2" ng-if="order.selections[0].productId == 'libre'">{{order.selections[0].sources.length}}/15</td>
+								<td class="col-md-2">{{order.priceFinal}}€</td>
+								<td class="col-md-2"><p class="success">{{order.orderStatus}}</p></td>
+								<td class="col-md-2">
+									<a href="#!/orders/{{order.orderId}}">
+										<button class="btn btn-primary btn-sm button-round" id="order.orderId">
+											<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+										</button>
+									</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -172,20 +155,20 @@
 					<div class="row-fluid"> 
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">montant</span>
-							<input type="text" class="form-control" placeholder="€" aria-describedby="basic-addon1">
+							<input type="number" class="form-control creditValue" placeholder="€/$" aria-describedby="basic-addon1" ng-model="creditValue">
 						</div>
 					</div><br/><br/>
 					<div class="row-fluid">
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="livraison incluse" disabled="true">
 							<span class="input-group-addon">
-								<input type="checkbox" aria-label="...">
+								<input type="checkbox" aria-label="..." ng-model="livraison">
 							</span>
 						</div><!-- /input-group -->
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Ajouter</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" ng-click="addCredit()">Ajouter</button>
 				</div>
 			</div>
 		</div>

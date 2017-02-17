@@ -17,13 +17,10 @@ angular.module('myApp.navbar', ['ngRoute'])
 	$scope.username = ""
 	var sessionCookie = $cookieStore.get('sessionToken')
 	var usernameCookie = $cookieStore.get('username')
-	console.log("in controller ")
 	$scope.verifySession = function() {
         if (sessionCookie) {
-        	console.log("cookie")
           user.sessionToken = sessionCookie
         	if (usernameCookie) {
-        		console.log("username: "+ usernameCookie)
         		 $scope.username = usernameCookie
         	}
         }
