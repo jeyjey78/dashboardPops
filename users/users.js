@@ -15,6 +15,7 @@ angular.module('myApp.users', ['ngRoute','ngCookies'])
     $scope.comments = []
     $scope.livraison = false
     $scope.orders = []
+    $scope.showUser = false
 
   $scope.searchUser = function() {
     $scope.loading = true
@@ -31,6 +32,7 @@ angular.module('myApp.users', ['ngRoute','ngCookies'])
     $http({method: "POST", url: server.urlDev+'users/search', data: data ,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
         console.log(response)
         if (response["data"]) {
+          $scope.showUser = true
           $scope.username = response["data"]["username"] != null ? response["data"]["username"] : ""
           $scope.phone = response["data"]["phoneNumber"] != null ? response["data"]["phoneNumber"] : ""
           $scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
