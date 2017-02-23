@@ -59,3 +59,7 @@
 .table th {
    text-align: center;   
 }
+
+span.glyphicon_status {
+    font-size: 2.5em;
+}

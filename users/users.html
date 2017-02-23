@@ -23,7 +23,7 @@
 					<div class='col-xs-1'></div>
 					<div class='col-xs-10'>
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Username/Tel" ng-model="searchData">
+							<input type="text" class="form-control" placeholder="Username/Tel" ng-model="searchData" ng-keypress="($event.keyCode === 13) ? searchUser() : 0">
 							<span class="input-group-btn">
 								<button class="btn btn-default searchUser" ng-click="searchUser()" type="button">Rechercher</button>
 							</span>
@@ -33,6 +33,7 @@
 				<div class="row">
 				<div class="col-xs-12 alertDiv"></div>
 				</div>
+				<div ng-show="showUser">
 				<div class="row">
 					<table class="table col-xs-12">
 						<thead>
@@ -55,7 +56,6 @@
 						</tbody>
 					</table>
 				</div>
-				<th>
 				<div class="row">
 					<table class="table col-xs-12">
 						<thead>
@@ -70,7 +70,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="order in orders">
-								<td class="col-md-2">{{order.timestamps.created | date:"dd/MM/yyyy hh:mm"}}</td>
+								<td class="col-md-2">{{order.timestamps.created * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 								<td class="col-md-3">{{order.selections[0].productId}}</td>
 								<td class="col-md-2" ng-if="order.selections[0].productId == 'box6'">{{order.selections[0].sources.length}}/6</td>
 								<td class="col-md-2" ng-if="order.selections[0].productId == 'libre'">{{order.selections[0].sources.length}}/15</td>
@@ -86,6 +86,7 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
 				</div>
 			</div>
 		</div>
