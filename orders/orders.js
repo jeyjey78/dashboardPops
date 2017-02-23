@@ -78,9 +78,10 @@ angular.module('myApp.orders', ['ngRoute'])
 
 		$http({method: "GET", url: server.urlDev+'orders/'+$scope.searchData, headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
-			$scope.loading = false
+			//$scope.loading = false
 			if (response["data"]) {
 				$scope.showOrder = true
+				$scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
 				$scope.status = response["data"]["orderStatus"] != null ? response["data"]["orderStatus"] : ""
 				$scope.type = response["data"]["selections"][0]["productId"] != null ? response["data"]["selections"][0]["productId"] : ""
 				$scope.priceFinal = response["data"]["priceFinal"] != null ? response["data"]["priceFinal"]+"€" : "-"
@@ -94,7 +95,25 @@ angular.module('myApp.orders', ['ngRoute'])
 
 				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
 				$scope.iconStatus = $scope.iconTable[$scope.status]
+				$scope.getUser()
+			}
+			else {
+				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+				alertView.error()
+			}
+		}, function errorCallback(response) {
+			alert("ERROR")
+		});
+	}
 
+	$scope.getUser = function(){
+		$scope.loading = true
+		$http({method: "POST", url: server.urlDev+'users/search',data: {"userId":$scope.userId},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+			console.log(response)
+			$scope.loading = false
+			if (response["data"]) {
+				$scope.username = response["data"]["username"] != null ? response["data"]["username"] : ""
+				$scope.phone = response["data"]["phoneNumber"] != null ? response["data"]["phoneNumber"] : ""
 			}
 			else {
 				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
@@ -144,9 +163,7 @@ angular.module('myApp.orders', ['ngRoute'])
 
 	$scope.getStatusIndex = function() {
 		for(var i=0; i<$scope.statusOptions.length; i++) {
-			console.log($scope.statusOptions[i]["status"] + "  // " + $scope.status)
         	if($scope.statusOptions[i]["status"] == $scope.status) {
-        		console.log("status : "+i)
              	return i
              }
         }

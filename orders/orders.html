@@ -13,7 +13,7 @@
           <div class='col-xs-1'></div>
           <div class='col-xs-10'>
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Numero de commande" ng-model="searchData">
+              <input type="text" class="form-control" placeholder="Numero de commande" ng-model="searchData" ng-keypress="($event.keyCode === 13) ? searchOrder() : 0">
               <span class="input-group-btn">
                 <button class="btn btn-default searchUser" ng-click="searchOrder()" type="button">Rechercher</button>
               </span>
@@ -38,9 +38,9 @@
               <tbody>
                 <tr>
                   <td class="col-md-3">12345678</td>
-                  <td class="col-md-3">John</td>
-                  <td class="col-md-3">0668794857</td>
-                  <td class="col-md-3">john@example.com</td>
+                  <td class="col-md-3">{{username}}</td>
+                  <td class="col-md-3">{{phone}}</td>
+                  <td class="col-md-3">{{address.email}}</td>
                 </tr>
               </tbody>
             </table>
