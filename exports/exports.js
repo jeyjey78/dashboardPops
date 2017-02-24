@@ -17,9 +17,11 @@ angular.module('myApp.exports', ['ngRoute'])
 		selected: "false"
 	}]
   $scope.newExportBtn = false
+  $scope.rights = user.rights
 
 	$scope.getWaitingOrders = function(){
 		$scope.loading = true
+    console.log("TOKEN"+user.sessionToken);
 		$http({method: "GET", url: server.urlDev+'orders/numberwaiting',headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
 			//$scope.loading = false
@@ -61,8 +63,9 @@ angular.module('myApp.exports', ['ngRoute'])
 	}
 
 	$scope.newExport = function() {
+    $scope.loading = true
 		var data = {"batchInput": {"sheets": $scope.nbPaper, "pitch": $scope.pitchValue}}
-		console.log(data)
+		//console.log(data)
 		//return
 		$http({method: "POST", url: server.urlDev+'batches',data: data,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)

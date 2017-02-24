@@ -30,17 +30,17 @@
               <thead>
                 <tr>
                   <th>Date Creation</th>
-                  <th>Username</th>
-                  <th>telephone</th>
-                  <th>Email</th>
+                  <th ng-if="rights=='popscrew'">Username</th>
+                  <th ng-if="rights=='popscrew'">telephone</th>
+                  <th ng-if="rights=='popscrew'">Email</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="col-md-3">{{date}}</td>
-                  <td class="col-md-3">{{username}}</td>
-                  <td class="col-md-3">{{phone}}</td>
-                  <td class="col-md-3">{{address.email}}</td>
+                  <td class="col-md-3" ng-if="rights=='popscrew'">{{username}}</td>
+                  <td class="col-md-3" ng-if="rights=='popscrew'">{{phone}}</td>
+                  <td class="col-md-3" ng-if="rights=='popscrew'">{{address.email}}</td>
                 </tr>
               </tbody>
             </table>
@@ -59,7 +59,7 @@
                       <tr>
                         <td class="col-md-3" style="padding-top: 15px;">Status</td>
                         <td class="col-md-7">
-                          <select class="form-control text-center" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="updateStatus()"></select>
+                          <select class="form-control text-center" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="updateStatus()" ng-disable="updateStatusBtn"></select>
                         </td>
                         <td><span class="glyphicon glyphicon-{{iconStatus}} glyphicon_status" aria-hidden="true"></span></td>
                       </tr>
@@ -71,7 +71,7 @@
                       <tr>
                         <td class="col-md-3" style="padding-top: 13px;">Price</td>
                         <td class="col-md-7">{{priceFinal}}</td>
-                        <td><button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target=".price-modal"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button></td>
+                        <td><button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target=".price-modal" ng-if="rights=='popscrew'"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button></td>
                       </tr>
                       <tr>
                         <td class="col-md-3">Nbre Pops</td>
@@ -82,7 +82,7 @@
                         <td class="col-md-3">Destinataire</td>
                         <td class="col-md-7">
                           {{newAddress.firstname}} {{newAddress.lastname}}<br/>{{newAddress.addressLine1}}<br/>{{newAddress.addressLine2}}<br/>{{newAddress.addressCity}} {{newAddress.addressZip}}<br/>{{newAddress.addressState}}<br/>{{newAddress.addressCountry}}</td>
-                          <td><button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target=".address-modal"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+                          <td><button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target=".address-modal" ng-if="rights=='popscrew'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
                         </tr>
                         <tr>
                           <td class="col-md-3">email</td>
