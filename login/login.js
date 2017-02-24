@@ -23,9 +23,16 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
 	    		user.username = $scope.username
 	    		user.password = $scope.password
 	    		user.sessionToken = response["data"]["sessionToken"]
+          user.rights = response["data"]["group"]
 	    		$cookieStore.put('sessionToken',response["data"]["sessionToken"])
 	    		$cookieStore.put('username',$scope.username)
-		   		$location.path("/users")
+          $cookieStore.put('rights',response["data"]["group"])
+          if (response["data"]["group"] == "popscrew") {
+            $location.path("/users")
+          }
+          else {
+            $location.path("/orders")
+          }
 	   		}
 	   		else {
 	   			$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
@@ -36,7 +43,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
 		    // or server returns response with an error status.
 		});
 
-		
+
 	}
 
 }]);
