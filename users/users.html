@@ -1,5 +1,177 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<!-- <div id="loadnavbar"></div> -->
+
+<div ng-app="MyApp.navbar" ng-controller="NavbarCtrl" id="navbar" ng-include="'navbar.html'">
+  	
+</div>
+<!-- 
+
+  <ul class="menu">
+    <li><a href="#!/login">Login</a></li>
+    <li><a href="#!/users">Users</a></li>
+    <li><a href="#!/orders">Oders</a></li>
+    <li><a href="#!/exports">Pitch/Exports</a></li>
+  </ul> -->
+ <H1>USERS</H1>
+<div ng-controller="UsersCtrl">
+	<div class="col-xs-12 col-xs-offset-5" ng-show="loading" style="height: 50px;">
+		<i class="fa fa-spinner fa-spin" style="font-size:30px; color:#ff2c5f;"></i>
+	</div>
+	<div class='col-sm-8 col-xs-12 information'>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class='col-xs-1'></div>
+					<div class='col-xs-10'>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Username/Tel" ng-model="searchData" ng-keypress="($event.keyCode === 13) ? searchUser() : 0">
+							<span class="input-group-btn">
+								<button class="btn btn-default searchUser" ng-click="searchUser()" type="button">Rechercher</button>
+							</span>
+						</div><!-- /input-group -->
+					</div>
+				</div><br/>
+				<div class="row">
+				<div class="col-xs-12 alertDiv"></div>
+				</div>
+				<div ng-show="showUser">
+				<div class="row">
+					<table class="table col-xs-12">
+						<thead>
+							<tr>
+								<th>UserID</th>
+								<th>Username</th>
+								<th>telephone</th>
+								<th>Crédits</th>
+								<th>Ajouter</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="col-md-3">{{userId}}</td>
+								<td class="col-md-3">{{username}}</td>
+								<td class="col-md-3">{{phone}}</td>
+								<td class="col-md-1">{{credit}}</td>
+								<td class="col-md-2"><button class="btn btn-info btn-sm button-round" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<table class="table col-xs-12">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Type</th>
+								<th>Nbre de pops</th>
+								<th>Prix</th>
+								<th>Statut</th>
+								<th>voir commande</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="order in orders">
+								<td class="col-md-2">{{order.timestamps.created * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+								<td class="col-md-3">{{order.selections[0].productId}}</td>
+								<td class="col-md-2" ng-if="order.selections[0].productId == 'box6'">{{order.selections[0].sources.length}}/6</td>
+								<td class="col-md-2" ng-if="order.selections[0].productId == 'libre'">{{order.selections[0].sources.length}}/15</td>
+								<td class="col-md-2">{{order.priceFinal}}€</td>
+								<td class="col-md-2"><p class="success">{{order.orderStatus}}</p></td>
+								<td class="col-md-2">
+									<a href="#!/orders/{{order.orderId}}">
+										<button class="btn btn-primary btn-sm button-round" id="order.orderId">
+											<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+										</button>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='col-sm-4 col-xs-12 remarques'>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-3"></div>
+						<div class="col-xs-6">
+							<H1>Zendesk</H1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-3"></div>
+						<div class="col-xs-6">
+							<H1>Remarques</H1>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="commentaire" ng-model="commentText">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" ng-click="addComment()">publier</button>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 alertDivComment"></div>
+					</div>
+					<hr/>
+					<div class="commentairesUsers">
+						<div class="row" ng-repeat="comment in comments">
+							<div class="col-xs-12">
+								<div class="row">
+									{{comment.adminId}} - {{comment.creationDate | date:"dd/MM/yyyy hh:mm"}}
+								</div>
+								<div class="well well-sm">
+									{{comment.content}}
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Ajouter du crédit</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row-fluid"> 
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">montant</span>
+							<input type="number" class="form-control creditValue" placeholder="€/$" aria-describedby="basic-addon1" ng-model="creditValue">
+						</div>
+					</div><br/><br/>
+					<div class="row-fluid">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="livraison incluse" disabled="true">
+							<span class="input-group-addon">
+								<input type="checkbox" aria-label="..." ng-model="livraison">
+							</span>
+						</div><!-- /input-group -->
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal" ng-click="addCredit()">Ajouter</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
