@@ -63,6 +63,7 @@ angular.module('myApp.exports', ['ngRoute'])
 	}
 
 	$scope.newExport = function() {
+    $scope.loading = true
 		var data = {"batchInput": {"sheets": $scope.nbPaper, "pitch": $scope.pitchValue}}
 		//console.log(data)
 		//return
