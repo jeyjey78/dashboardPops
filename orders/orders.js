@@ -78,10 +78,11 @@ angular.module('myApp.orders', ['ngRoute'])
 
 		$http({method: "GET", url: server.urlDev+'orders/'+$scope.searchData, headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
-			//$scope.loading = false
+		  //$scope.loading = false
 			if (response["data"]) {
 				$scope.showOrder = true
 				$scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
+        $scope.date = response["data"]["creationDate"] != null ? response["data"]["creationDate"] : ""
 				$scope.status = response["data"]["orderStatus"] != null ? response["data"]["orderStatus"] : ""
 				$scope.type = response["data"]["selections"][0]["productId"] != null ? response["data"]["selections"][0]["productId"] : ""
 				$scope.priceFinal = response["data"]["priceFinal"] != null ? response["data"]["priceFinal"]+"€" : "-"
