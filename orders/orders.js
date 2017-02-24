@@ -19,8 +19,16 @@ angular.module('myApp.orders', ['ngRoute'])
 	$scope.address = []
 	$scope.newAddress = []
 	$scope.addressString = ""
+	$scope.rights = user.rights
+	if ($scope.rights == "popscrew"){
+		$scope.updateStatusDisable = false
+	}
+	else {
+		 $scope.updateStatusDisable = true
+	}
+
 	$scope.statusOptions = [{
-		status: "pending", 
+		status: "pending",
 		icon: "time",
 		selected: "false"
 	},{
@@ -71,11 +79,16 @@ angular.module('myApp.orders', ['ngRoute'])
 
 	$scope.searchOrder = function() {
 		console.log("SEARCHING")
+		if (!user.sessionToken) {
+			return
+		}
+
 		$scope.loading = true
 		if ($scope.orderId) {
 			$scope.searchData = $scope.orderId
 		}
 
+		console.log($scope.searchData)
 		$http({method: "GET", url: server.urlDev+'orders/'+$scope.searchData, headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
 		  //$scope.loading = false
@@ -99,6 +112,7 @@ angular.module('myApp.orders', ['ngRoute'])
 				$scope.getUser()
 			}
 			else {
+				$scope.loading = false
 				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
 				alertView.error()
 			}
@@ -143,7 +157,7 @@ angular.module('myApp.orders', ['ngRoute'])
 	}
 
 	$scope.updateStatus = function() {
-		
+
 		$scope.loading = true
 		$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/status',data: {"orderStatus":$scope.statusSelected["status"]},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
@@ -169,7 +183,7 @@ angular.module('myApp.orders', ['ngRoute'])
              }
         }
 	}
-	
+
 	$scope.orderId = $routeParams.orderId;
 	if ($scope.orderId) {
 		console.log($scope.orderId)
