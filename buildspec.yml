@@ -1,0 +1,6 @@
+version: 0.1
+phases:
+  build:
+    commands:
+      - rm -f buildspec.yml
+      - aws s3 sync . s3://dashboard.trypops.com/ --dryrun
