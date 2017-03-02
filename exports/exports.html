@@ -68,9 +68,12 @@
 							<td class="col-md-2"></td>
 							<td class="col-md-2">{{batch.batchInput.sheets}}</td>
 							<td class="col-md-2">{{batch.batchInput.pitch}}</td>
-							<td class="col-md-2">{{batch.batchStatus}}</td>
+							<td class="col-md-2" ng-if="rights=='print'">{{batch.batchStatus}}</td>
+							<td class="col-md-2" ng-if="rights=='popscrew'">
+								<select class="form-control text-right" ng-init="statusBatch[$index]=statusOptions[getStatusIndex(batch.batchStatus)]" ng-options="option.status for option in statusOptions" ng-model="statusBatch[$index]" ng-change="updateStatusBatches($index, batch.id)"></select>
+							</td>
 							<td class="col-md-2">
-								<button class="btn btn-info btn-sm button-round" ng-if="rights=='print'">
+								<button class="btn btn-info btn-sm button-round" ng-if="rights=='print'" ng-click="exportBatches(batch.id)" ng-disabled="exportDisable">
 									<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 								</button>
 								<button class="btn btn-warning btn-sm button-round" ng-if="rights=='print'">
