@@ -1,9 +1,9 @@
 <!-- <div id="loadnavbar"></div> -->
 
 <div ng-app="MyApp.navbar" ng-controller="NavbarCtrl" id="navbar" ng-include="'navbar.html'">
-  	
+
 </div>
-<!-- 
+<!--
 
   <ul class="menu">
     <li><a href="#!/login">Login</a></li>
@@ -72,8 +72,7 @@
 							<tr ng-repeat="order in orders">
 								<td class="col-md-2">{{order.timestamps.created * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 								<td class="col-md-3">{{order.selections[0].productId}}</td>
-								<td class="col-md-2" ng-if="order.selections[0].productId == 'box6'">{{order.selections[0].sources.length}}/6</td>
-								<td class="col-md-2" ng-if="order.selections[0].productId == 'libre'">{{order.selections[0].sources.length}}/15</td>
+								<td class="col-md-2">{{ getNbPops($index,order.selections[0].sources) }}</td>
 								<td class="col-md-2">{{order.priceFinal}}€</td>
 								<td class="col-md-2"><p class="success">{{order.orderStatus}}</p></td>
 								<td class="col-md-2">
@@ -138,7 +137,7 @@
 									{{comment.content}}
 								</div>
 							</div>
-						</div>						
+						</div>
 					</div>
 				</div>
 			</div>
@@ -153,7 +152,7 @@
 					<h4 class="modal-title" id="myModalLabel">Ajouter du crédit</h4>
 				</div>
 				<div class="modal-body">
-					<div class="row-fluid"> 
+					<div class="row-fluid">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">montant</span>
 							<input type="number" class="form-control creditValue" placeholder="€/$" aria-describedby="basic-addon1" ng-model="creditValue">
