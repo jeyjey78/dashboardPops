@@ -32,6 +32,16 @@ angular.module('myApp.exports', ['ngRoute'])
   $scope.exportDisable = true
   $scope.rights = user.rights
 
+  /*** Utilities ***/
+  $scope.getStatusIndex = function(status) {
+		for(var i=0; i<$scope.statusOptions.length; i++) {
+        	if($scope.statusOptions[i]["status"] == status) {
+             	return i
+             }
+        }
+	}
+
+  /*** functions ***/
 	$scope.getWaitingOrders = function(){
 		$scope.loading = true
     console.log("TOKEN"+user.sessionToken);
@@ -167,31 +177,30 @@ angular.module('myApp.exports', ['ngRoute'])
   }
 
   $scope.updateStatusBatches = function(index, batchId) {
-    $scope.loading = true
-    var data = {"batchStatus":$scope.statusBatch[index]["status"]}
-    $http({method: "POST", url: server.urlDev+'batches/'+batchId+"/status",data: data,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
-      console.log(response)
-      $scope.loading = false
-      if (response["data"]) {
-        //$scope.batches = response["data"] != null ? response["data"] : ""
-        $scope.searchBatches()
-      }
-      else {
-        $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
-        alertView.error()
-      }
-    }, function errorCallback(response) {
-      alert("ERROR")
-    });
+    if (confirm("Do you really want to update the status of this batch ?")) {
+      $scope.loading = true
+      var data = {"batchStatus":$scope.statusBatch[index]["status"]}
+      $http({method: "POST", url: server.urlDev+'batches/'+batchId+"/status",data: data,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+        console.log(response)
+        $scope.loading = false
+        if (response["data"]) {
+          //$scope.batches = response["data"] != null ? response["data"] : ""
+          $scope.searchBatches()
+        }
+        else {
+          $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+          alertView.error()
+        }
+      }, function errorCallback(response) {
+        alert("ERROR")
+      });
+    }
+    else {
+      console.log($scope.statusOptions[$scope.getStatusIndex($scope.statusSelected["status"])])
+      $scope.statusBatch[index] = $scope.statusOptions[$scope.getStatusIndex($scope.statusSelected["status"])]
+    }
   }
 
-  /*** Utilities ***/
-  $scope.getStatusIndex = function(status) {
-		for(var i=0; i<$scope.statusOptions.length; i++) {
-        	if($scope.statusOptions[i]["status"] == status) {
-             	return i
-             }
-        }
-	}
+
 
 }]);

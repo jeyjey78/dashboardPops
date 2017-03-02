@@ -74,6 +74,7 @@ angular.module('myApp.users', ['ngRoute','ngCookies'])
       $scope.loading = false
       if (response["data"]) {
         $scope.orders = response["data"]
+
       }
       else {
         $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
@@ -84,12 +85,20 @@ angular.module('myApp.users', ['ngRoute','ngCookies'])
     });
   }
 
+  $scope.getNbPops = function(index,sources) {
+    var count = 0;
+    sources.forEach(function(source) {
+      count += source["quantity"]
+    })
+    return $scope.orders[index]["selections"][0]["productId"] != "libre" ? count + "/6" : count + "/15"
+  }
+
   $scope.addComment = function() {
     $scope.loading = true
     if ($scope.commentText == '') {
       $(".alertDivComment").append("<div class='alert alert-danger'>champ vide...</div>")
       alertView.error()
-      return      
+      return
     }
     $http({method: "POST", url: server.urlDev+'users/'+$scope.userId+'/postNote', data: {"content":$scope.commentText}, headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
       console.log(response)
@@ -130,4 +139,3 @@ angular.module('myApp.users', ['ngRoute','ngCookies'])
    }
 
 }]);
-
