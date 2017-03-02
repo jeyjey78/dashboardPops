@@ -20,6 +20,7 @@ angular.module('myApp.orders', ['ngRoute'])
 	$scope.newAddress = []
 	$scope.addressString = ""
 	$scope.rights = user.rights
+	
 	if ($scope.rights == "popscrew"){
 		$scope.updateStatusDisable = false
 	}
@@ -78,7 +79,6 @@ angular.module('myApp.orders', ['ngRoute'])
 	$scope.iconStatus = ""
 
 	$scope.searchOrder = function() {
-		console.log("SEARCHING")
 		if (!user.sessionToken) {
 			return
 		}
@@ -91,7 +91,7 @@ angular.module('myApp.orders', ['ngRoute'])
 		console.log($scope.searchData)
 		$http({method: "GET", url: server.urlDev+'orders/'+$scope.searchData, headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
-		  //$scope.loading = false
+
 			if (response["data"]) {
 				$scope.showOrder = true
 				$scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
@@ -102,11 +102,17 @@ angular.module('myApp.orders', ['ngRoute'])
 				$scope.priceShipping = response["data"]["priceShipping"] != null ? response["data"]["priceShipping"]+"€" : "-"
 				$scope.priceProducts = response["data"]["priceProducts"] != null ? response["data"]["priceProducts"]+"€" : "-"
 				$scope.credit = response["data"]["creditUsed"] != null ? "-"+response["data"]["creditUsed"]+"€" : "-"
-				$scope.nbPops = response["data"]["selections"][0]["productId"] != "libre" ? response["data"]["selections"][0]["sources"].length + "/6" : response["data"]["selections"][0]["sources"].length + "/15"
 
 				$scope.address = response["data"]["address"] != null ? response["data"]["address"] : ""
 				$scope.sources = response["data"]["selections"][0]["sources"] != null ? response["data"]["selections"][0]["sources"] : ""
 				$scope.newAddress = $scope.address
+
+				var count = 0;
+				$scope.sources.forEach(function(source) {
+					count += source["quantity"]
+				})
+				$scope.nbPops = response["data"]["selections"][0]["productId"] != "libre" ? count + "/6" : count + "/15"
+
 
 				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
 				$scope.iconStatus = $scope.iconTable[$scope.status]
@@ -161,23 +167,27 @@ angular.module('myApp.orders', ['ngRoute'])
 	}
 
 	$scope.updateStatus = function() {
-
-		$scope.loading = true
-		$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/status',data: {"orderStatus":$scope.statusSelected["status"]},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
-			console.log(response)
-			$scope.loading = false
-			if (response["data"]) {
-				$scope.iconStatus = $scope.iconTable[$scope.statusSelected["status"]]
-				$scope.status = $scope.statusSelected["status"]
-			}
-			else {
-				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
-				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
-				alertView.error()
-			}
-		}, function errorCallback(response) {
-			alert("ERROR")
-		});
+		if (confirm("Do you really want to update the status of this order ?")) {
+			$scope.loading = true
+			$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/status',data: {"orderStatus":$scope.statusSelected["status"]},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+				console.log(response)
+				$scope.loading = false
+				if (response["data"]) {
+					$scope.iconStatus = $scope.iconTable[$scope.statusSelected["status"]]
+					$scope.status = $scope.statusSelected["status"]
+				}
+				else {
+					$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
+					$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+					alertView.error()
+				}
+			}, function errorCallback(response) {
+				alert("ERROR")
+			});
+		}
+		else {
+			$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
+		}
 	}
 
 	$scope.getStatusIndex = function() {
@@ -188,6 +198,8 @@ angular.module('myApp.orders', ['ngRoute'])
         }
 	}
 
+
+	/** INIT **/
 	$scope.orderId = $routeParams.orderId;
 	if ($scope.orderId) {
 		console.log($scope.orderId)
