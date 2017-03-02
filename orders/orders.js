@@ -161,23 +161,27 @@ angular.module('myApp.orders', ['ngRoute'])
 	}
 
 	$scope.updateStatus = function() {
-
-		$scope.loading = true
-		$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/status',data: {"orderStatus":$scope.statusSelected["status"]},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
-			console.log(response)
-			$scope.loading = false
-			if (response["data"]) {
-				$scope.iconStatus = $scope.iconTable[$scope.statusSelected["status"]]
-				$scope.status = $scope.statusSelected["status"]
-			}
-			else {
-				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
-				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
-				alertView.error()
-			}
-		}, function errorCallback(response) {
-			alert("ERROR")
-		});
+		if (confirm("Do you really want to update the status of this order ?")) {
+			$scope.loading = true
+			$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/status',data: {"orderStatus":$scope.statusSelected["status"]},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+				console.log(response)
+				$scope.loading = false
+				if (response["data"]) {
+					$scope.iconStatus = $scope.iconTable[$scope.statusSelected["status"]]
+					$scope.status = $scope.statusSelected["status"]
+				}
+				else {
+					$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
+					$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+					alertView.error()
+				}
+			}, function errorCallback(response) {
+				alert("ERROR")
+			});
+		}
+		else {
+			$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
+		}
 	}
 
 	$scope.getStatusIndex = function() {
