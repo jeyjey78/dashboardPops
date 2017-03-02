@@ -37,7 +37,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="col-md-3">{{date}}</td>
+                  <td class="col-md-3">{{date * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
                   <td class="col-md-3" ng-if="rights=='popscrew'">{{username}}</td>
                   <td class="col-md-3" ng-if="rights=='popscrew'">{{phone}}</td>
                   <td class="col-md-3" ng-if="rights=='popscrew'">{{address.email}}</td>
@@ -59,7 +59,7 @@
                       <tr>
                         <td class="col-md-3" style="padding-top: 15px;">Status</td>
                         <td class="col-md-7">
-                          <select class="form-control text-center" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="updateStatus()" ng-disable="updateStatusBtn"></select>
+                          <select class="form-control text-center" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="updateStatus()" ng-disabled="updateStatusDisable"></select>
                         </td>
                         <td><span class="glyphicon glyphicon-{{iconStatus}} glyphicon_status" aria-hidden="true"></span></td>
                       </tr>
@@ -98,10 +98,21 @@
             <div class="col-xs-5">
               <div class="panel panel-default">
                 <div class="panel-body">
-                  <div class="col-xs-4" ng-repeat="i in [1, 2, 3, 4, 5, 6]">
-                    <img alt="Brand" src="../components/images/pops-icon.jpg" height="100px" width="50px" style="padding-bottom: 20px;">
+                  <div class="row">
+                  <ul style="padding-left: 15px;">
+                   <li class="sourceli" ng-repeat="source in sources">
+                        <a href="">
+                          <img alt="Brand" ng-src="{{source.url}}" height="130px" width="85px" style="border-radius: 6px;">
+                        </a>
+                   </li>
+                   </ul>
+                 </div>
+                  <!-- <div class="row">
+                  <div class="col-xs-4" ng-repeat="source in sources" style="padding-bottom:5px;padding-right:30px;">
+                    <img alt="Brand" ng-src="{{source.url}}" height="130px" width="85px" style="border-radius: 6px;">
                   </div>
-                </div>
+                </div> -->
+              </div>
               </div>
             </div>
           </div>
