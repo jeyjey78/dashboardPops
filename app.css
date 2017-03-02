@@ -53,13 +53,51 @@
 }
 
 .table td {
-   text-align: center;   
+   text-align: center;
 }
 
 .table th {
-   text-align: center;   
+   text-align: center;
 }
 
 span.glyphicon_status {
     font-size: 2.5em;
+}
+
+/** gallery Order */
+
+.sourceli{
+     position:relative;float:left;
+     width:90px;height:140px;padding:10px;list-style:none;
+}
+/*permet de créer deux lignes*/
+.sourceli:nth-child(3n+1){clear:left;}
+
+.sourceli a{
+     display:block;overflow:hidden;
+     width:90px;height:130px;
+     margin-top:0px;margin-left:0px;
+     border:0px solid rgba(0,0,0,0.7);
+     transition-property:width,height,margin,z-index,border;
+     transition-duration:0.4s;
+}
+
+.sourceli a:hover{
+     position:absolute;
+     width:160px;height:260px;
+     margin-top:-56px;margin-left:-56px;
+     z-index:100;
+     /*border:6px solid rgba(0,0,0,0.7);*/
+}
+
+.sourceli a img{
+     position:absolute;
+     width:80px;height:130px;z-index:20;
+     transition-property:width,height,z-index;
+     transition-duration:0.4s;
+}
+
+.sourceli a:hover img{
+     width:160px;height:260px;
+     z-index:100;
 }

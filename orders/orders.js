@@ -105,6 +105,7 @@ angular.module('myApp.orders', ['ngRoute'])
 				$scope.nbPops = response["data"]["selections"][0]["productId"] != "libre" ? response["data"]["selections"][0]["sources"].length + "/6" : response["data"]["selections"][0]["sources"].length + "/15"
 
 				$scope.address = response["data"]["address"] != null ? response["data"]["address"] : ""
+				$scope.sources = response["data"]["selections"][0]["sources"] != null ? response["data"]["selections"][0]["sources"] : ""
 				$scope.newAddress = $scope.address
 
 				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]

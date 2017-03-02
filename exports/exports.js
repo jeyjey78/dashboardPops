@@ -12,10 +12,21 @@ angular.module('myApp.exports', ['ngRoute'])
 .controller('ExportsCtrl', ["$scope", '$routeParams', '$location', '$http', '$cookieStore', 'user', 'alertView', 'server', function($scope, $routeParams, $location, $http, $cookieStore, user, alertView, server) {
 	$scope.batches = []
 	$scope.statusOptions = [{
-		status: "pending",
-		icon: "time",
-		selected: "false"
+		status: "pending"
+	},{
+		status: "queued"
+	},{
+		status: "processing"
+	},{
+		status: "interlaced"
+	},{
+		status: "placed"
+	},{
+		status: "downloadable"
+	},{
+		status: "downloaded"
 	}]
+
   $scope.newExportBtn = false
   $scope.rights = user.rights
 
@@ -52,6 +63,7 @@ angular.module('myApp.exports', ['ngRoute'])
 			$scope.loading = false
 			if (response["data"]) {
 				$scope.batches = response["data"] != null ? response["data"] : ""
+        $scope.statusSelected = $scope.statusOptions[0]
 			}
 			else {
 				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
@@ -82,4 +94,40 @@ angular.module('myApp.exports', ['ngRoute'])
 			alert("ERROR")
 		});
 	}
+
+  $scope.cancelBatch = function (batchId) {
+    console.log(batchId)
+    $scope.loading = true
+    $http({method: "POST", url: server.urlDev+'batches/'+batchId+"/cancel",headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+			console.log(response)
+			$scope.loading = false
+			if (response["data"]) {
+				$scope.searchBatches()
+			}
+			else {
+				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+				alertView.error()
+			}
+		}, function errorCallback(response) {
+			alert("ERROR")
+		});
+  }
+
+  $scope.searchBatches = function () {
+    $scope.loading = true
+    $http({method: "GET", url: server.urlDev+'batches/?batchStatus='+$scope.statusSelected["status"],headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+			console.log(response)
+			$scope.loading = false
+			if (response["data"]) {
+				$scope.batches = response["data"] != null ? response["data"] : ""
+			}
+			else {
+				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+				alertView.error()
+			}
+		}, function errorCallback(response) {
+			alert("ERROR")
+		});
+  }
+
 }]);

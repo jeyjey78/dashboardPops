@@ -34,19 +34,19 @@
 			<div class="panel-header">
 			<br/>
       <div class="row">
-      <div class="col-md-4 col-xs-12">
+      <!-- <div class="col-md-4 col-xs-12">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="batch Id" aria-describedby="basic-addon1" ng-model="batchIdSearch">
           <span class="input-group-btn">
         <button class="btn btn-default" type="button" ng-click="searchBatches()">Search</button>
       </span>
         </div>
-      </div>
-      <div class="col-md-3 col-xs-12 col-md-offset-5">
+      </div> -->
+      <div class="col-md-3 col-xs-12 col-md-offset-9">
         <div class="input-group">
           <span class="input-group-addon" id="sizing-addon2">Status</span>
           <select class="form-control text-right" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="searchBatches()"></select>
-      </div>
+      	</div>
       </div>
     </div>
     </div>
@@ -76,8 +76,8 @@
 								<button class="btn btn-warning btn-sm button-round" ng-if="rights=='print'">
 									<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 								</button>
-								<button class="btn btn-danger btn-sm button-round" alt="signaler un problème" ng-if="rights=='popscrew'">
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								<button class="btn btn-danger btn-sm button-round" alt="signaler un problème" ng-if="rights=='popscrew'" ng-click="cancelBatch(batch.id)">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 							</td>
 						</tr>
