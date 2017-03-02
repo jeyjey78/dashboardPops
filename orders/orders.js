@@ -95,7 +95,7 @@ angular.module('myApp.orders', ['ngRoute'])
 			if (response["data"]) {
 				$scope.showOrder = true
 				$scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
-        $scope.date = response["data"]["creationDate"] != null ? response["data"]["creationDate"] : ""
+        $scope.date = response["data"]["timestamps"]["created"] != null ? response["data"]["timestamps"]["created"] : ""
 				$scope.status = response["data"]["orderStatus"] != null ? response["data"]["orderStatus"] : ""
 				$scope.type = response["data"]["selections"][0]["productId"] != null ? response["data"]["selections"][0]["productId"] : ""
 				$scope.priceFinal = response["data"]["priceFinal"] != null ? response["data"]["priceFinal"]+"€" : "-"
@@ -110,7 +110,10 @@ angular.module('myApp.orders', ['ngRoute'])
 
 				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
 				$scope.iconStatus = $scope.iconTable[$scope.status]
-				$scope.getUser()
+				if ($scope.rights == "popscrew") {
+					$scope.getUser()
+				}
+				$scope.loading = false
 			}
 			else {
 				$scope.loading = false

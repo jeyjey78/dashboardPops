@@ -37,7 +37,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="col-md-3">{{date}}</td>
+                  <td class="col-md-3">{{date * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
                   <td class="col-md-3" ng-if="rights=='popscrew'">{{username}}</td>
                   <td class="col-md-3" ng-if="rights=='popscrew'">{{phone}}</td>
                   <td class="col-md-3" ng-if="rights=='popscrew'">{{address.email}}</td>
@@ -59,7 +59,7 @@
                       <tr>
                         <td class="col-md-3" style="padding-top: 15px;">Status</td>
                         <td class="col-md-7">
-                          <select class="form-control text-center" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="updateStatus()" ng-disable="updateStatusBtn"></select>
+                          <select class="form-control text-center" ng-options="option.status for option in statusOptions" ng-model="statusSelected" ng-change="updateStatus()" ng-disabled="updateStatusDisable"></select>
                         </td>
                         <td><span class="glyphicon glyphicon-{{iconStatus}} glyphicon_status" aria-hidden="true"></span></td>
                       </tr>
@@ -102,8 +102,7 @@
                   <ul style="padding-left: 15px;">
                    <li class="sourceli" ng-repeat="source in sources">
                         <a href="">
-                        <img alt="Brand" ng-src="{{source.url}}" height="130px" width="85px" style="border-radius: 6px;">
-                        <strong>Firefox</strong>
+                          <img alt="Brand" ng-src="{{source.url}}" height="130px" width="85px" style="border-radius: 6px;">
                         </a>
                    </li>
                    </ul>
