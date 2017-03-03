@@ -16,9 +16,9 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
 		$scope.loading = true
 		var data = {"username":$scope.username, "password":$scope.password}
 		$http.post(server.urlDev+'login', data).success(function successCallback(response) {
-		//$http({method:"POST", url: 'https://4i48oxh8hb.execute-api.us-east-1.amazonaws.com/dev/login', data: data, headers: {}}).then(function successCallback(response) {
     		console.log(response)
     		$scope.loading = false
+        
     		if (response["data"]) {
 	    		user.username = $scope.username
 	    		user.password = $scope.password
@@ -42,8 +42,6 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
 		    // called asynchronously if an error occurs
 		    // or server returns response with an error status.
 		});
-
-
 	}
 
 }]);

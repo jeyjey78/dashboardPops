@@ -32,9 +32,9 @@ config(['$locationProvider', '$routeProvider', '$httpProvider', function($locati
 .factory('server', function(){
   var server = {};
   var hostname = window.location.hostname
-  if (hostname == "dashboard.trypops.com") { //"localhost") {
+  if (hostname == "daashboard.trypops.com") {
     console.log(hostname)
-    server.urlDev = "https://qisp6a112l.execute-api.us-east-1.amazonaws.com/prd/";
+    server.urlDev = "https://qisp6a112l.execute-api.us-east-1.amazonaws.com/prd/";//"https://gs6lb2lepl.execute-api.us-east-1.amazonaws.com/int/"//
   }
   else {
     server.urlDev = "https://4i48oxh8hb.execute-api.us-east-1.amazonaws.com/dev/";
