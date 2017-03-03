@@ -34,14 +34,6 @@
 			<div class="panel-header">
 			<br/>
       <div class="row">
-      <!-- <div class="col-md-4 col-xs-12">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="batch Id" aria-describedby="basic-addon1" ng-model="batchIdSearch">
-          <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="searchBatches()">Search</button>
-      </span>
-        </div>
-      </div> -->
       <div class="col-md-3 col-xs-12 col-md-offset-9">
         <div class="input-group">
           <span class="input-group-addon" id="sizing-addon2">Status</span>
@@ -54,8 +46,8 @@
 				<table class="table col-xs-12">
 					<thead>
 						<tr>
-							<th>Date</th>
-							<th>Nbre de commandes</th>
+							<th>Creation date</th>
+							<th>Status date</th>
 							<th>Nbre de feuilles A3</th>
 							<th>Pitch</th>
 							<th>Status</th>
@@ -65,7 +57,11 @@
 					<tbody>
 						<tr ng-repeat="batch in batches">
 							<td class="col-md-2">{{batch.creationDate * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
-							<td class="col-md-2"></td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'queued'">{{batch.timestamps.queued * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'processing'">{{batch.timestamps.processing * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'interlaced'">{{batch.timestamps.interlaced * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'a3queued'">{{batch.timestamps.a3queued * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'placed'">{{batch.timestamps.placed * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 							<td class="col-md-2">{{batch.batchInput.sheets}}</td>
 							<td class="col-md-2">{{batch.batchInput.pitch}}</td>
 							<td class="col-md-2" ng-if="rights=='print'">{{batch.batchStatus}}</td>

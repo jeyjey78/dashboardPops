@@ -132,3 +132,12 @@ span.glyphicon_status {
    transition-property:width,height,z-index;
    transition-duration:0.4s;
 }
+
+/***** FOOTER ****/
+footer {
+    background-color: #f8f8f8;
+    position: relative;
+    height: 30px;
+    bottom: 0;
+    width: 100%;
+}

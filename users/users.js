@@ -28,8 +28,10 @@ angular.module('myApp.users', ['ngRoute','ngCookies'])
     else {
       var data = {"username":$scope.searchData}
     }
-
-    $http({method: "POST", url: server.urlDev+'users/search', data: data ,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+    var header = {'sessionToken': user.sessionToken}
+    console.log(header)
+    console.log(server.urlDev+'users/search')
+    $http({method: "POST", url: server.urlDev+'users/search', data: data ,headers: header}).success(function successCallback(response) {
         console.log(response)
         if (response["data"]) {
           $scope.showUser = true
