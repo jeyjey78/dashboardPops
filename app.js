@@ -31,9 +31,14 @@ config(['$locationProvider', '$routeProvider', '$httpProvider', function($locati
 
 .factory('server', function(){
   var server = {};
-
-  server.urlDev = "https://4i48oxh8hb.execute-api.us-east-1.amazonaws.com/dev/";
-
+  var hostname = window.location.hostname
+  if (hostname == "dashboard.trypops.com") {
+    console.log(hostname)
+    server.urlDev = "https://qisp6a112l.execute-api.us-east-1.amazonaws.com/prd/";
+  }
+  else {
+    server.urlDev = "https://4i48oxh8hb.execute-api.us-east-1.amazonaws.com/dev/";
+  }
   return server;
 })
 
