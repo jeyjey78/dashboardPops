@@ -57,11 +57,14 @@
 					<tbody>
 						<tr ng-repeat="batch in batches">
 							<td class="col-md-2">{{batch.creationDate * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'pending'"> - </td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'queued'">{{batch.timestamps.queued * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'processing'">{{batch.timestamps.processing * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'interlaced'">{{batch.timestamps.interlaced * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'a3queued'">{{batch.timestamps.a3queued * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'placed'">{{batch.timestamps.placed * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'downloadable'"> - </td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'downloaded'"> - </td>
 							<td class="col-md-2">{{batch.batchInput.sheets}}</td>
 							<td class="col-md-2">{{batch.batchInput.pitch}}</td>
 							<td class="col-md-2" ng-if="rights=='print'">{{batch.batchStatus}}</td>
