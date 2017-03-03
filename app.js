@@ -32,7 +32,7 @@ config(['$locationProvider', '$routeProvider', '$httpProvider', function($locati
 .factory('server', function(){
   var server = {};
   var hostname = window.location.hostname
-  if (hostname == "dashboard.trypops.com") {
+  if (hostname == "dashboard.trypops.com") { //"localhost") {
     console.log(hostname)
     server.urlDev = "https://qisp6a112l.execute-api.us-east-1.amazonaws.com/prd/";
   }
