@@ -21,6 +21,8 @@ angular.module('myApp.exports', ['ngRoute'])
 	},{
 		status: "interlaced"
 	},{
+		status: "a3queued"
+	},{
 		status: "placed"
 	},{
 		status: "downloadable"
