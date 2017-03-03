@@ -165,13 +165,13 @@ angular.module('myApp.exports', ['ngRoute'])
       console.log(response)
       $scope.loading = false
       if (response["data"]) {
-        $scope.batches = response["data"] != null ? response["data"] : ""
+        window.location.assign(response["data"]["zipUrl"])
       }
       else {
         $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
         alertView.error()
       }
-    }, function errorCallback(response) {
+    }, function errorCallback() {
       alert("ERROR")
     });
   }
