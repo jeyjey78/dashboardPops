@@ -1,5 +1,5 @@
 <div ng-controller="LoginCtrl">
-  <div class="login">
+  <div class="login" ng-keypress="($event.keyCode === 13) ? logInAction() : 0">
     <div class="login-screen">
       <div class="panel panel-default">
         <div class="panel-body">
