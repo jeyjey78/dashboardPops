@@ -7,7 +7,7 @@ angular.module('myApp.navbar', ['ngRoute'])
   });
 }])
 
-.controller('NavbarCtrl', ["$scope", '$location', '$cookieStore', 'user', function($scope, $location, $cookieStore, user) {
+.controller('NavbarCtrl', ["$scope", '$location', '$cookieStore', '$http', 'user', 'server', function($scope, $location, $cookieStore, $http, user, server) {
 	$scope.isActive = function(viewLocation) {
 	     //    $(".nav").find(".active").removeClass("active");
    			// $(this).parent().addClass("active");
@@ -36,4 +36,20 @@ angular.module('myApp.navbar', ['ngRoute'])
         }
      }
     $scope.verifySession()
+
+    $scope.logOutAction = function() {
+      $(document.body).css({'cursor' : 'wait'});
+      $http({method: "POST", url: server.urlDev+'logout', headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+        if (response["statusCode"]) {
+          $(document.body).css({'cursor' : 'default'});
+          $location.path("/login")
+        }
+        else {
+          $(".alertDivComment").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+          alertView.error()
+        }
+      }, function errorCallback(response) {
+        alert("ERROR")
+      });
+    }
 }]);
