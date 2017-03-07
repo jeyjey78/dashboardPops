@@ -24,9 +24,14 @@
   padding-right: 8.0em;
 }
 
-.commentairesOrders .commentairesUsers {
+.commentairesUsers {
 	overflow: scroll;
-  max-height: 300px;
+  max-height: 400px;
+}
+
+.commentairesOrders {
+	overflow: scroll;
+  max-height: 400px;
 }
 
 .panel.panel-horizontal {
