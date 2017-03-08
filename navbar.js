@@ -40,9 +40,10 @@ angular.module('myApp.navbar', ['ngRoute'])
     $scope.logOutAction = function() {
       $(document.body).css({'cursor' : 'wait'});
       $http({method: "POST", url: server.urlDev+'logout', headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+        $(document.body).css({'cursor' : 'default'});
+        $location.path("/login")
         if (response["statusCode"]) {
-          $(document.body).css({'cursor' : 'default'});
-          $location.path("/login")
+
         }
         else {
           $(".alertDivComment").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")

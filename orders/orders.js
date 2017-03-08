@@ -95,6 +95,7 @@ $scope.showCamera = false
 
 			if (response["data"]) {
 				$scope.showOrder = true
+				$scope.scan = true
 				$scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
         $scope.date = response["data"]["timestamps"]["created"] != null ? response["data"]["timestamps"]["created"] : ""
 				$scope.status = response["data"]["orderStatus"] != null ? response["data"]["orderStatus"] : ""
@@ -121,7 +122,6 @@ $scope.showCamera = false
 					$scope.getUser()
 				}
 				$scope.loading = false
-				$scope.scan = true
 			}
 			else {
 				$scope.loading = false
