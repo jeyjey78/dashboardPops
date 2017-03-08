@@ -63,6 +63,7 @@ angular.module('myApp.exports', ['ngRoute'])
         }
 
 				$scope.getBatches()
+        $scope.batchesCount()
 			}
 			else {
 				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
@@ -76,7 +77,7 @@ angular.module('myApp.exports', ['ngRoute'])
 	$scope.getBatches = function() {
 		$http({method: "GET", url: server.urlDev+'batches',headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 			console.log(response)
-			$scope.loading = false
+			//$scope.loading = false
 			if (response["data"]) {
 				$scope.batches = response["data"] != null ? response["data"] : ""
         $scope.statusSelected = $scope.statusOptions[0]
@@ -191,6 +192,7 @@ angular.module('myApp.exports', ['ngRoute'])
           if (response["data"]) {
             //$scope.batches = response["data"] != null ? response["data"] : ""
             $scope.searchBatches()
+            $scope.batchesCount()
           }
           else {
             $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
@@ -233,6 +235,22 @@ angular.module('myApp.exports', ['ngRoute'])
       $scope.loading = false
       if (response["data"]) {
         $(document.body).css({'cursor' : 'default'});
+      }
+      else {
+        $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+        alertView.error()
+      }
+    }, function errorCallback() {
+      alert("ERROR")
+    });
+  }
+
+  $scope.batchesCount = function() {
+    $http({method: "GET", url: server.urlDev+'batches/count',headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+      console.log(response)
+      $scope.loading = false
+      if (response["data"]) {
+        $scope.counts = response["data"]
       }
       else {
         $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")

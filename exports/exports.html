@@ -29,6 +29,34 @@
 </div>
 <br/>
 <div class="row">
+	<table class="table col-xs-12">
+		<thead>
+			<tr>
+				<th>Pending</th>
+				<th>Queued</th>
+				<th>Processing</th>
+				<th>Interlaced</th>
+				<th>A3queued</th>
+				<th>Placed</th>
+				<th>Downloadable</th>
+				<th>Downloaded</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{counts.pending}}</td>
+				<td>{{counts.queued}}</td>
+				<td>{{counts.processing}}</td>
+				<td>{{counts.interlaced}}</td>
+				<td>{{counts.a3queued}}</td>
+				<td>{{counts.placed}}</td>
+				<td>{{counts.downloadable}}</td>
+				<td>{{counts.downloaded}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
 			<div class="panel-header">
