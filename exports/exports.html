@@ -65,6 +65,7 @@
 							<td class="col-md-2" ng-if="batch.batchStatus == 'placed'">{{batch.timestamps.placed * 1000 | date:"dd/MM/yyyy HH:mm"}}</td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'downloadable'"> - </td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'downloaded'"> - </td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'sent'"> - </td>
 							<td class="col-md-2">{{batch.batchInput.sheets}}</td>
 							<td class="col-md-2">{{batch.batchInput.pitch}}</td>
 							<td class="col-md-2" ng-if="rights=='print'">{{batch.batchStatus}}</td>

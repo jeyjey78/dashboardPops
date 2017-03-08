@@ -28,6 +28,8 @@ angular.module('myApp.exports', ['ngRoute'])
 		status: "downloadable"
 	},{
 		status: "downloaded"
+	},{
+		status: "sent"
 	}]
 
   $scope.newExportBtn = false
@@ -182,25 +184,46 @@ angular.module('myApp.exports', ['ngRoute'])
     if (confirm("Do you really want to update the status of this batch ?")) {
       $scope.loading = true
       var data = {"batchStatus":$scope.statusBatch[index]["status"]}
-      $http({method: "POST", url: server.urlDev+'batches/'+batchId+"/status",data: data,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
-        console.log(response)
-        $scope.loading = false
-        if (response["data"]) {
-          //$scope.batches = response["data"] != null ? response["data"] : ""
-          $scope.searchBatches()
-        }
-        else {
-          $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
-          alertView.error()
-        }
-      }, function errorCallback(response) {
-        alert("ERROR")
-      });
+      if ($scope.statusBatch[index]["status"] != "sent") {
+        $http({method: "POST", url: server.urlDev+'batches/'+batchId+"/status",data: data,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+          console.log(response)
+          $scope.loading = false
+          if (response["data"]) {
+            //$scope.batches = response["data"] != null ? response["data"] : ""
+            $scope.searchBatches()
+          }
+          else {
+            $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+            alertView.error()
+          }
+        }, function errorCallback(response) {
+          alert("ERROR")
+        });
+      }
+      else {
+        $scope.updateBatchToSent(batchId)
+      }
     }
     else {
       console.log($scope.statusOptions[$scope.getStatusIndex($scope.statusSelected["status"])])
       $scope.statusBatch[index] = $scope.statusOptions[$scope.getStatusIndex($scope.statusSelected["status"])]
     }
+  }
+
+  $scope.updateBatchToSent = function(batchId) {
+    $http({method: "POST", url: server.urlDev+'batches/'+batchId+"/isSent",data: data,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+      console.log(response)
+      $scope.loading = false
+      if (response["data"]) {
+        $scope.searchBatches()
+      }
+      else {
+        $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+        alertView.error()
+      }
+    }, function errorCallback(response) {
+      alert("ERROR")
+    });
   }
 
   $scope.loadMoreBatches = function() {

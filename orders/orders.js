@@ -220,6 +220,24 @@ $scope.showCamera = false
         console.log("ERORR : " +error);
     };
 
+/***** PRINT *****/
+
+$scope.printSticker = function() {
+	var printData = $scope.address["firstname"] + " " + $scope.address["lastname"] + "<br/>" + $scope.address["addressLine1"]
+
+	if ($scope.address["addressLine2"] != "") {
+		printData += "<br/>" + $scope.address["addressLine2"]
+	}
+	printData += "<br/>" + $scope.address["addressZip"] + " " + $scope.address["addressCity"] + " " + $scope.address["addressState"] + "<br/>"
+
+	var country = $scope.address["addressCountry"].toUpperCase()
+
+	var win = window.open()
+	win.document.write(printData)
+	win.document.write(country)
+	win.print()
+	win.close()
+}
 
 	/** INIT **/
 	$scope.orderId = $routeParams.orderId;
