@@ -20,7 +20,8 @@ angular.module('myApp.orders', ['ngRoute'])
 	$scope.newAddress = []
 	$scope.addressString = ""
 	$scope.rights = user.rights
-	
+	$scope.scan = true
+$scope.showCamera = false
 	if ($scope.rights == "popscrew"){
 		$scope.updateStatusDisable = false
 	}
@@ -120,6 +121,7 @@ angular.module('myApp.orders', ['ngRoute'])
 					$scope.getUser()
 				}
 				$scope.loading = false
+				$scope.scan = true
 			}
 			else {
 				$scope.loading = false
@@ -197,6 +199,26 @@ angular.module('myApp.orders', ['ngRoute'])
              }
         }
 	}
+
+
+	/*** QR CODE ***/
+	$scope.showScanner = function() {
+		$scope.showCamera = !$scope.showCamera
+	}
+
+	$scope.onSuccess = function(data) {
+        console.log("Success : " + data);
+				if ($scope.scan) {
+					$scope.showCamera = false
+					$scope.scan = false
+					$scope.orderId = data
+					$scope.searchOrder()
+					// $location.path("/orders/"+data)
+			}
+    };
+    $scope.onError = function(error) {
+        console.log("ERORR : " +error);
+    };
 
 
 	/** INIT **/

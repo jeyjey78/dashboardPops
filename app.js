@@ -9,7 +9,8 @@ angular.module('myApp', [
   'myApp.orders',
   'myApp.exports',
   'myApp.navbar',
-  'myApp.version'
+  'myApp.version',
+  'qrScanner'
 ]).
 config(['$locationProvider', '$routeProvider', '$httpProvider', function($locationProvider, $routeProvider, $httpProvider) {
   $locationProvider.hashPrefix('!');

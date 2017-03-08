@@ -203,4 +203,21 @@ angular.module('myApp.exports', ['ngRoute'])
     }
   }
 
+  $scope.loadMoreBatches = function() {
+    $(document.body).css({'cursor' : 'wait'});
+    $http({method: "GET", url: server.urlDev+'batches/'+batchId+"/zipUrl",headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+      console.log(response)
+      $scope.loading = false
+      if (response["data"]) {
+        $(document.body).css({'cursor' : 'default'});
+      }
+      else {
+        $(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+        alertView.error()
+      }
+    }, function errorCallback() {
+      alert("ERROR")
+    });
+  }
+
 }]);

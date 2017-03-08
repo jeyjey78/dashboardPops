@@ -10,6 +10,10 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="row">
+          <center><button class="btn btn-warning" ng-click="showScanner()"> Show/Hide QRcode scanner </button></center><br/>
+          <div class="cameraZone"><center><qr-scanner ng-show='showCamera' width='400' height='300' ng-success='onSuccess(data)' ng-error='onError(error)' /></center></div>
+        </div>
+        <div class="row">
           <div class='col-xs-1'></div>
           <div class='col-xs-10'>
             <div class="input-group">
