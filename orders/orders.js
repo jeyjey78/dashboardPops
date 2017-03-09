@@ -21,13 +21,13 @@ angular.module('myApp.orders', ['ngRoute'])
 	$scope.addressString = ""
 	$scope.rights = user.rights
 	$scope.scan = true
-$scope.showCamera = false
-$scope.printBtnDisable = true
+	$scope.showCamera = false
+	$scope.printBtnDisable = true
 	if ($scope.rights == "popscrew"){
 		$scope.updateStatusDisable = false
 	}
 	else {
-		 $scope.updateStatusDisable = true
+		$scope.updateStatusDisable = true
 	}
 
 	$scope.statusOptions = [{
@@ -69,14 +69,14 @@ $scope.printBtnDisable = true
 	}]
 
 	$scope.iconTable = {"pending": "time",
-						"paid": "credit-card",
-						"processing": "barcode",
-						"printing": "print",
-						"sent": "check",
-						"pause": "pause",
-						"canceled": "remove",
-						"refunded": "share-alt",
-						"error": "warning-sign",}
+	"paid": "credit-card",
+	"processing": "barcode",
+	"printing": "print",
+	"sent": "check",
+	"pause": "pause",
+	"canceled": "remove",
+	"refunded": "share-alt",
+	"error": "warning-sign",}
 
 	$scope.iconStatus = ""
 
@@ -98,7 +98,7 @@ $scope.printBtnDisable = true
 				$scope.showOrder = true
 				$scope.scan = true
 				$scope.userId = response["data"]["userId"] != null ? response["data"]["userId"] : ""
-        $scope.date = response["data"]["timestamps"]["created"] != null ? response["data"]["timestamps"]["created"] : ""
+				$scope.date = response["data"]["timestamps"]["created"] != null ? response["data"]["timestamps"]["created"] : ""
 				$scope.status = response["data"]["orderStatus"] != null ? response["data"]["orderStatus"] : ""
 				$scope.type = response["data"]["selections"][0]["productId"] != null ? response["data"]["selections"][0]["productId"] : ""
 				$scope.priceFinal = response["data"]["priceFinal"] != null ? response["data"]["priceFinal"]+"€" : "-"
@@ -174,6 +174,10 @@ $scope.printBtnDisable = true
 
 	$scope.updateStatus = function() {
 		if (confirm("Do you really want to update the status of this order ?")) {
+			if ($scope.status == "printing" && $scope.statusSelected["status"] == "paid") {
+				$scope.requeueOrder()
+				return
+			}
 			$scope.loading = true
 			$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/status',data: {"orderStatus":$scope.statusSelected["status"]},headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
 				console.log(response)
@@ -196,12 +200,31 @@ $scope.printBtnDisable = true
 		}
 	}
 
+	$scope.requeueOrder = function() {
+		$scope.loading = true
+		$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/requeue',data: $scope.address,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+			console.log(response)
+			$scope.loading = false
+			if (response["data"]) {
+				$scope.statusSelected = $scope.statusOptions[1]
+				$scope.status = $scope.statusOptions[1]["status"]
+			}
+			else {
+				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
+				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+				alertView.error()
+			}
+		}, function errorCallback(response) {
+			alert("ERROR")
+		});
+	}
+
 	$scope.getStatusIndex = function() {
 		for(var i=0; i<$scope.statusOptions.length; i++) {
-        	if($scope.statusOptions[i]["status"] == $scope.status) {
-             	return i
-             }
-        }
+			if($scope.statusOptions[i]["status"] == $scope.status) {
+				return i
+			}
+		}
 	}
 
 
@@ -211,57 +234,57 @@ $scope.printBtnDisable = true
 	}
 
 	$scope.onSuccess = function(data) {
-        console.log("Success : " + data);
-				if ($scope.scan) {
-					$scope.showCamera = false
-					$scope.scan = false
-					$scope.orderId = data
-					$scope.searchOrder()
-					// $location.path("/orders/"+data)
-			}
-    };
-    $scope.onError = function(error) {
-        console.log("ERORR : " +error);
-    };
+		if ($scope.scan) {
+			$scope.showCamera = false
+			$scope.scan = false
+			$scope.orderId = data
+			$scope.searchOrder()
+			// $location.path("/orders/"+data)
+		}
+	};
+	$scope.onError = function(error) {
 
-/***** PRINT *****/
+	};
 
-$scope.printSticker = function() {
-	var printData = $scope.address["firstname"] + " " + $scope.address["lastname"] + "<br/>" + $scope.address["addressLine1"]
 
-	if ($scope.address["addressLine2"] != "") {
-		printData += "<br/>" + $scope.address["addressLine2"]
+	/***** PRINT *****/
+	$scope.printSticker = function() {
+		var printData = $scope.address["firstname"] + " " + $scope.address["lastname"] + "<br/>" + $scope.address["addressLine1"]
+
+		if ($scope.address["addressLine2"] != "") {
+			printData += "<br/>" + $scope.address["addressLine2"]
+		}
+		printData += "<br/>" + $scope.address["addressZip"] + " " + $scope.address["addressCity"] + " " + $scope.address["addressState"] + "<br/>"
+
+		var country = $scope.address["addressCountry"].toUpperCase()
+
+		var win = window.open()
+		win.document.write(printData)
+		win.document.write(country)
+		win.print()
+		win.close()
+
+		$scope.orderIsSent()
 	}
-	printData += "<br/>" + $scope.address["addressZip"] + " " + $scope.address["addressCity"] + " " + $scope.address["addressState"] + "<br/>"
 
-	var country = $scope.address["addressCountry"].toUpperCase()
-
-	var win = window.open()
-	win.document.write(printData)
-	win.document.write(country)
-	win.print()
-	win.close()
-
-	$scope.orderIsSent()
-}
-
-$scope.orderIsSent = function () {
-	$scope.loading = true
-	$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/isSent',data: $scope.address,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
-		console.log(response)
-		$scope.loading = false
-		if (response["data"]) {
-			$scope.statusSelected = $scope.statusOptions[5]
-			$scope.status = $scope.statusOptions[5]["status"]
-		}
-		else {
-			$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
-			alertView.error()
-		}
-	}, function errorCallback(response) {
-		alert("ERROR")
-	});
-}
+	$scope.orderIsSent = function () {
+		$scope.loading = true
+		$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/isSent',data: $scope.address,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+			console.log(response)
+			$scope.loading = false
+			if (response["data"]) {
+				$scope.statusSelected = $scope.statusOptions[4]
+				$scope.status = $scope.statusOptions[4]["status"]
+			}
+			else {
+				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
+				$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+				alertView.error()
+			}
+		}, function errorCallback(response) {
+			alert("ERROR")
+		});
+	}
 
 	/** INIT **/
 	$scope.orderId = $routeParams.orderId;
