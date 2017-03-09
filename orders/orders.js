@@ -22,6 +22,7 @@ angular.module('myApp.orders', ['ngRoute'])
 	$scope.rights = user.rights
 	$scope.scan = true
 $scope.showCamera = false
+$scope.printBtnDisable = true
 	if ($scope.rights == "popscrew"){
 		$scope.updateStatusDisable = false
 	}
@@ -115,6 +116,9 @@ $scope.showCamera = false
 				})
 				$scope.nbPops = response["data"]["selections"][0]["productId"] != "libre" ? count + "/6" : count + "/15"
 
+				if ($scope.status == "printing") {
+					$scope.printBtnDisable = false
+				}
 
 				$scope.statusSelected = $scope.statusOptions[$scope.getStatusIndex()]
 				$scope.iconStatus = $scope.iconTable[$scope.status]
@@ -237,6 +241,26 @@ $scope.printSticker = function() {
 	win.document.write(country)
 	win.print()
 	win.close()
+
+	$scope.orderIsSent()
+}
+
+$scope.orderIsSent = function () {
+	$scope.loading = true
+	$http({method: "POST", url: server.urlDev+'orders/'+$scope.orderId+'/isSent',data: $scope.address,headers: {'sessionToken': user.sessionToken}}).success(function successCallback(response) {
+		console.log(response)
+		$scope.loading = false
+		if (response["data"]) {
+			$scope.statusSelected = $scope.statusOptions[5]
+			$scope.status = $scope.statusOptions[5]["status"]
+		}
+		else {
+			$(".alertDiv").append("<div class='alert alert-danger'>"+response["errorMessage"]+"</div>")
+			alertView.error()
+		}
+	}, function errorCallback(response) {
+		alert("ERROR")
+	});
 }
 
 	/** INIT **/
