@@ -13,23 +13,35 @@ angular.module('myApp.exports', ['ngRoute'])
 	$scope.batches = []
   $scope.statusBatch = []
 	$scope.statusOptions = [{
-		status: "pending"
+		status: "pending",
+    selection: "true"
 	},{
-		status: "queued"
+		status: "queued",
+    selection: "true"
 	},{
-		status: "processing"
+		status: "processing",
+    selection: "true"
 	},{
-		status: "interlaced"
+		status: "interlaced",
+    selection: "true"
 	},{
-		status: "a3queued"
+		status: "a3queued",
+    selection: "true"
 	},{
-		status: "placed"
+		status: "placed",
+    selection: "true"
 	},{
-		status: "downloadable"
+		status: "downloadable",
+    selection: "true"
 	},{
-		status: "downloaded"
+		status: "downloaded",
+    selection: "true"
 	},{
-		status: "sent"
+		status: "sent",
+    selection: "true"
+	},{
+		status: "canceled",
+    selection: "false"
 	}]
 
   $scope.newExportBtn = false
@@ -106,7 +118,7 @@ angular.module('myApp.exports', ['ngRoute'])
 			console.log(response)
 			$scope.loading = false
 			if (response["data"]) {
-        $scope.getBatches()
+        $scope.getWaitingOrders()
 				//$scope.numberWaiting = response["data"]["count"] != null ? response["data"]["count"] : ""
 			}
 			else {
