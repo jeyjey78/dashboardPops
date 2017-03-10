@@ -118,7 +118,7 @@ angular.module('myApp.exports', ['ngRoute'])
 			console.log(response)
 			$scope.loading = false
 			if (response["data"]) {
-        $scope.getBatches()
+        $scope.getWaitingOrders()
 				//$scope.numberWaiting = response["data"]["count"] != null ? response["data"]["count"] : ""
 			}
 			else {
