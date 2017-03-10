@@ -94,11 +94,13 @@
 							<td class="col-md-2" ng-if="batch.batchStatus == 'downloadable'"> - </td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'downloaded'"> - </td>
 							<td class="col-md-2" ng-if="batch.batchStatus == 'sent'"> - </td>
+							<td class="col-md-2" ng-if="batch.batchStatus == 'canceled'"> - </td>
 							<td class="col-md-2">{{batch.batchInput.sheets}}</td>
 							<td class="col-md-2">{{batch.batchInput.pitch}}</td>
 							<td class="col-md-2" ng-if="rights=='print'">{{batch.batchStatus}}</td>
-							<td class="col-md-2" ng-if="rights=='popscrew'">
-								<select class="form-control text-right" ng-init="statusBatch[$index]=statusOptions[getStatusIndex(batch.batchStatus)]" ng-options="option.status for option in statusOptions" ng-model="statusBatch[$index]" ng-change="updateStatusBatches($index, batch.id)"></select>
+							<td class="col-md-2" ng-if="batch.batchStatus=='canceled'">{{batch.batchStatus}}</td>
+							<td class="col-md-2" ng-if="rights=='popscrew' && batch.batchStatus!='canceled'">
+								<select class="form-control text-right" ng-init="statusBatch[$index]=statusOptions[getStatusIndex(batch.batchStatus)]" ng-options="option.status for option in statusOptions | filter:option.selection='true'" ng-model="statusBatch[$index]" ng-change="updateStatusBatches($index, batch.id)"></select>
 							</td>
 							<td class="col-md-2">
 								<button class="btn btn-info btn-sm button-round" ng-click="exportBatches(batch.id)" ng-disabled="exportDisable">
